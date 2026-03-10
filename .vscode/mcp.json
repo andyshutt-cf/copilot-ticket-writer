@@ -1,0 +1,33 @@
+{
+  "__comment": "Optional Jira MCP integration. This is NOT required — the ticket-writer agent generates Markdown tickets by default. To enable direct Jira posting, fill in your credentials when prompted by VS Code. The agent will ALWAYS ask for explicit confirmation before posting anything to Jira. Get your API token from: https://id.atlassian.com/manage-profile/security/api-tokens",
+  "inputs": [
+    {
+      "id": "jira-base-url",
+      "type": "promptString",
+      "description": "Jira instance URL (e.g. https://yourorg.atlassian.net)"
+    },
+    {
+      "id": "jira-email",
+      "type": "promptString",
+      "description": "Jira user email address"
+    },
+    {
+      "id": "jira-api-token",
+      "type": "promptString",
+      "description": "Jira API token (from https://id.atlassian.com/manage-profile/security/api-tokens)",
+      "password": true
+    }
+  ],
+  "servers": {
+    "jira": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@joshuarileydev/jira-mcp-server"],
+      "env": {
+        "JIRA_BASE_URL": "${input:jira-base-url}",
+        "JIRA_EMAIL": "${input:jira-email}",
+        "JIRA_API_TOKEN": "${input:jira-api-token}"
+      }
+    }
+  }
+}
