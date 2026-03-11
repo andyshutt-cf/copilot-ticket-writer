@@ -17,6 +17,12 @@ A VS Code GitHub Copilot custom agent that turns project context — codebase, r
 
 ---
 
+## The Story Behind @ticket-writer
+
+Curious how this agent came together? Read the full journey in [blog.md](blog.md) — from identifying the problem (vague, context-scattered tickets) through building the solution (explicit rules, knowledge grounding, codebase integration). It covers our design decisions, the phases we went through, and key insights about building AI agents.
+
+---
+
 ## Requirements
 
 - **VS Code** 1.106 or later
