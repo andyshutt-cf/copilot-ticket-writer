@@ -1,0 +1,11 @@
+{
+  "name": "ticket-writer-tools",
+  "version": "1.0.0",
+  "description": "CLI tools for the ticket-writer Copilot agent",
+  "scripts": {
+    "create-ticket": "node scripts/create-jira-ticket.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

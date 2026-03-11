@@ -56,6 +56,27 @@ Before writing any ticket, load:
 - Only POST to Jira if the user explicitly confirms (e.g. "yes, create it" or "post this to Jira").
 - Never hardcode Jira credentials; always use input variables or environment variables.
 
+### Posting to Jira
+There are two ways to create a Jira issue from a generated ticket:
+
+**Option A — CLI script (recommended for local use)**
+Save the ticket to a `.md` file, then run from the VS Code terminal:
+```bash
+node scripts/create-jira-ticket.js --file ticket.md
+```
+Or use the built-in VS Code task: `Terminal > Run Task > Create Jira Ticket from File`.
+Credentials are read from a `.env` file (see `.env.example`).
+
+**Option B — MCP server (in-chat posting)**
+If the Jira MCP server is configured in `.vscode/mcp.json`, the agent can POST directly. The agent will always ask for explicit confirmation before doing so.
+
+When the user asks to "post to Jira", "create this ticket", or similar:
+1. If MCP is available, offer to post in-chat and ask for confirmation.
+2. Otherwise, output the CLI command they should run, e.g.:
+   ```
+   node scripts/create-jira-ticket.js --file ticket.md --project <PROJECT_KEY>
+   ```
+
 ---
 
 ## Ticket Types and Structures
