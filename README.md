@@ -58,11 +58,17 @@ Copy the following into your client's project repository root:
 ```bash
 # From this repo, copy:
 cp -r .github /path/to/client-project/
-cp -r docs /path/to/client-project/
+cp -r ticket-writer-docs /path/to/client-project/
 cp -r .vscode /path/to/client-project/   # optional, only if using Jira MCP
 ```
 
 The agent will then have direct `#codebase` access to the client's code, which significantly improves ticket quality.
+
+> **Note:** Your client repo will now contain:
+> - `.github/agents/` — agent definition
+> - `.github/ticket-writer-rules/` — ticket format and workflow rules
+> - `.github/ticket-writer-instructions.md` — workspace instructions
+> - `ticket-writer-docs/` — knowledge base, transcripts, design assets, and AI summaries
 
 ### Option B — Use as a standalone workspace
 

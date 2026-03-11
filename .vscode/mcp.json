@@ -4,17 +4,17 @@
     {
       "id": "jira-base-url",
       "type": "promptString",
-      "description": "Jira instance URL (e.g. https://yourorg.atlassian.net)"
+      "description": "https://xsolutions.atlassian.net/"
     },
     {
       "id": "jira-email",
       "type": "promptString",
-      "description": "Jira user email address"
+      "description": "andrew.shutt@createfuture.com"
     },
     {
       "id": "jira-api-token",
       "type": "promptString",
-      "description": "Jira API token (from https://id.atlassian.com/manage-profile/security/api-tokens)",
+      "description": "ATATT3xFfGF0lwPbyApMuqIpl48FyHqgKHQDsR4LByA0z3kWhtO49UesRVthaleb1PNrYDprERtkXpD6OFvxBfIJsPkY97WOafBFIIy8TD887y7c0h9CXYBrQlOG33H2iJ2TKFLzAfgSBgar6Lyt2u4BYZeczMnAzRCaJyKj5YtYoKfSe4IX48E=06509A53",
       "password": true
     }
   ],
