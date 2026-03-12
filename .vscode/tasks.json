@@ -4,7 +4,7 @@
     {
       "label": "Create Jira Ticket from File",
       "type": "shell",
-      "command": "node scripts/create-jira-ticket.js --file \"${input:ticketFile}\"",
+      "command": "node ticket-writer-scripts/create-jira-ticket.js --file \"${input:ticketFile}\"",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -17,7 +17,7 @@
     {
       "label": "Create Jira Ticket (dry run)",
       "type": "shell",
-      "command": "node scripts/create-jira-ticket.js --file \"${input:ticketFile}\" --dry-run",
+      "command": "node ticket-writer-scripts/create-jira-ticket.js --file \"${input:ticketFile}\" --dry-run",
       "presentation": {
         "echo": true,
         "reveal": "always",
