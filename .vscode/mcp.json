@@ -4,7 +4,7 @@
     {
       "id": "jira-base-url",
       "type": "promptString",
-      "description": "Your Jira instance URL (e.g. https://yourorg.atlassian.net)"
+      "description": "https://xsolutions.atlassian.net/"
     },
     {
       "id": "jira-email",
@@ -14,10 +14,24 @@
     {
       "id": "jira-api-token",
       "type": "promptString",
-      "description": "Your Jira API token (generate one at https://id.atlassian.com/manage-profile/security/api-tokens)",
+      "description": "ATATT3xFfGF0lwPbyApMuqIpl48FyHqgKHQDsR4LByA0z3kWhtO49UesRVthaleb1PNrYDprERtkXpD6OFvxBfIJsPkY97WOafBFIIy8TD887y7c0h9CXYBrQlOG33H2iJ2TKFLzAfgSBgar6Lyt2u4BYZeczMnAzRCaJyKj5YtYoKfSe4IX48E=06509A53",
       "password": true
     }
   ],
+  "servers": {
+    "jira": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@joshuarileydev/jira-mcp-server"],
+      "env": {
+        "JIRA_BASE_URL": "${input:jira-base-url}",
+        "JIRA_EMAIL": "${input:jira-email}",
+        "JIRA_API_TOKEN": "${input:jira-api-token}"
+      }
+    }
+  }
+}
+
   "servers": {
     "jira": {
       "type": "stdio",
