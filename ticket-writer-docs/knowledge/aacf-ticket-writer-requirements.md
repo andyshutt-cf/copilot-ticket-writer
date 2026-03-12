@@ -30,13 +30,17 @@ Activated when the user includes `--interactive` in the request (e.g. `@ticket-w
 
 **Steps:**
 1. Scan the codebase and relevant docs before asking any questions.
-2. Ask **3–4 numbered clarification questions**, each offering:
+2. Ask an initial batch of **3-6 numbered clarification questions**, prioritising the decisions that most affect scope, behaviour, acceptance criteria, analytics, rollout, or integration boundaries. Each question must offer:
    - **A** — first concrete suggestion
    - **B** — alternative suggestion
    - **C** — Custom (user provides their own answer)
-3. Present all questions in one response and pause until the user replies.
-4. Draft the ticket after the user responds.
-   - **Partial-answer fallback:** if the user provides incomplete answers, draft the ticket with explicit stated assumptions for any unanswered questions. Do not request a further round of clarification.
+3. Present all questions in one response, explicitly tell the user they can reply with `generate` at any time to stop the interview, and pause until the user replies.
+4. After each user reply:
+   - If the user includes `generate`, or enough information has been gathered, draft the ticket immediately.
+   - If material ambiguities remain and the user has not included `generate`, ask **one further round only** of up to 3 narrower numbered questions using the same **A**, **B**, and **C** structure.
+5. Draft the ticket no later than the end of the second interactive round.
+   - **Partial-answer fallback:** if the user provides incomplete answers, draft the ticket with explicit stated assumptions for any unanswered questions.
+6. Use the ticket's **Open Questions / Clarifications** section only for non-blocking uncertainties or external confirmations that remain after the interview.
 
 ### Core Details First
 

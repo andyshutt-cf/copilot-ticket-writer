@@ -10,7 +10,7 @@ A VS Code GitHub Copilot custom agent that turns project context — codebase, r
 
 **Key behaviours:**
 - **Default mode:** Drafts a full ticket immediately; asks clarifying questions after (not before)
-- **Interactive mode:** Asks 3–4 numbered A/B/C questions first, waits for answers, then drafts — activate with `--interactive`
+- **Interactive mode:** Starts with 3-6 numbered A/B/C questions, can ask one narrower follow-up round if needed, and lets the user stop the interview at any time with `generate` — activate with `--interactive`
 - Adapts structure based on ticket type (Story / Bug / Task / Spike)
 - Uses `#codebase` to reference actual modules, naming conventions, and test patterns
 - Outputs Markdown by default; posts to Jira only on explicit confirmation
@@ -236,7 +236,9 @@ Figma: https://www.figma.com/file/...
 
 #### Interactive mode — interview first, then draft
 
-Add `--interactive` to the prompt to switch the agent into an interview-first flow. The agent will scan the codebase and docs, ask 3–4 numbered clarification questions (each with **A**, **B**, and **C Custom** options), wait for your answers, and then produce the full ticket.
+Add `--interactive` to the prompt to switch the agent into an interview-first flow. The agent will scan the codebase and docs, ask an initial batch of 3-6 numbered clarification questions (each with **A**, **B**, and **C Custom** options), and wait for your answers before drafting.
+
+If material gaps remain, it may ask one additional round of up to 3 narrower questions. You can stop the interview at any time by including `generate` in your reply, and the agent will draft using the information collected so far.
 
 ```
 @ticket-writer --interactive Add a "Remember me" option to the login screen.
@@ -261,10 +263,11 @@ Add `--interactive` to the prompt to switch the agent into an interview-first fl
 #### Interactive mode
 
 1. The agent scans the codebase and loads relevant docs
-2. The agent asks 3–4 numbered questions (A / B / C Custom options) in a single response
-3. Answer the questions — partial answers are fine
-4. The agent drafts the full ticket based on your answers, stating assumptions for anything unanswered
-5. Copy the Markdown into Jira, or (if MCP is enabled) confirm to post directly
+2. The agent asks an initial batch of 3-6 numbered questions (A / B / C Custom options) in a single response
+3. Answer any or all of the questions, and include `generate` whenever you want the ticket drafted
+4. If needed, the agent may ask one narrower follow-up round of up to 3 questions
+5. The agent drafts the full ticket based on your answers, stating assumptions for anything unanswered
+6. Copy the Markdown into Jira, or (if MCP is enabled) confirm to post directly
 
 ---
 
@@ -345,8 +348,9 @@ After installation, verify the agent is working correctly:
 4. Run an interactive-mode test: `@ticket-writer --interactive Story: add a loading spinner to the submit button`
 5. Confirm the agent:
    - Does **not** draft a ticket immediately
-   - Asks 3–4 numbered questions with A, B, and C Custom options
-   - Waits for your answers before producing the ticket
+  - Asks an initial batch of 3-6 numbered questions with A, B, and C Custom options
+  - Tells you that you can include `generate` to stop the interview and draft immediately
+  - Waits for your answers before producing the ticket, unless you choose to end the interview
 
 If the agent doesn't appear, check that your VS Code version is 1.106 or later and that you have a Copilot subscription with Custom Agents enabled.
 

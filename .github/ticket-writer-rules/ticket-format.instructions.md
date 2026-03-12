@@ -41,13 +41,16 @@ Use this mode when the request **contains** `--interactive` (e.g. `@ticket-write
 > `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag.
 
 1. Scan the codebase and load relevant docs to understand the feature area.
-2. Ask **3–4 numbered clarification questions** before drafting. Each question must offer three options:
+2. Ask an initial batch of **3-6 numbered clarification questions** before drafting. Prioritise the decisions that most affect scope, user behaviour, analytics, integrations, and acceptance criteria. Each question must offer three options:
    - **A** — first concrete suggestion (grounded in codebase context)
    - **B** — alternative suggestion
    - **C** — Custom (user provides their own answer)
-3. Present all questions in a single response and **wait** for the user to reply.
-4. Once the user responds, draft the full ticket.
-   - **Partial-answer fallback:** if the user answers only some questions, draft the ticket immediately using the answers provided and state explicit assumptions for any unanswered questions. Do not request a second round of clarification.
+3. Present all questions in a single response, tell the user they can reply with `generate` at any time to stop the interview, and **wait** for the user to reply.
+4. Once the user responds:
+   - If the user includes `generate`, or enough information has been gathered, draft the full ticket immediately.
+   - If material ambiguities remain and the user has not included `generate`, ask **one additional round only** of up to 3 narrower numbered questions using the same **A**, **B**, and **C** option format.
+5. **Partial-answer fallback:** if the user answers only some questions, or unresolved points remain after the follow-up round, draft the ticket using the answers provided and state explicit assumptions for any unanswered questions.
+6. Reserve **Open Questions / Clarifications** for non-blocking uncertainties or external confirmations that remain after the interactive interview.
 
 ---
 

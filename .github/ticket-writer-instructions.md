@@ -16,7 +16,9 @@ The agent supports two modes. Choose the one that suits the situation:
 
 **Default mode** generates a full draft ticket straight away, states any assumptions made, and asks up to 3 follow-up questions after the draft.
 
-**Interactive mode** scans the codebase and docs first, then asks 3–4 numbered questions (each with **A**, **B**, and **C Custom** options) and waits for your answers before drafting. If you provide only partial answers, the agent drafts immediately using what you gave it and documents assumptions for the rest.
+**Interactive mode** scans the codebase and docs first, then asks an initial batch of 3-6 numbered questions (each with **A**, **B**, and **C Custom** options) focused on the decisions that most affect scope and acceptance criteria. You can reply with answers in any format and include `generate` at any time to stop the interview and draft with the information collected so far.
+
+If material gaps remain and you have not said `generate`, the agent may ask one additional round of up to 3 narrower questions. After that follow-up round, or after any partial answer, it drafts using what it has and documents assumptions for the rest.
 
 > `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag. Include it literally in the chat message.
 
