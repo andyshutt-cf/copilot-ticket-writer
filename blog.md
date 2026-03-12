@@ -79,6 +79,10 @@ The agent generates a complete ticket immediately, making reasonable, clearly st
 
 After the draft, it asks clarifying questions. This flips the traditional ticket-writing flow and dramatically improves feedback loops.
 
+That draft-first path remains the default mode. When a user wants the agent to interview first instead, they can switch modes explicitly with `Mode: interactive` in the chat request.
+
+In interactive mode, the agent scans the codebase and docs first, asks an initial batch of 3-6 numbered clarification questions with A/B/C options, and waits before drafting. The user can include `generate` at any time to stop the interview and produce a draft from the information collected so far.
+
 ### 4. **Four Ticket Types, One Philosophy**
 
 - **Story**: Full structure (context, user story, analytics, design, tech notes, ACs)
@@ -194,6 +198,14 @@ The agent:
 5. **Outputs the draft immediately** with clearly stated assumptions
 6. **Asks clarifying questions** to refine and validate
 
+If the user prefers an interview-first workflow, they can invoke:
+
+```
+@ticket-writer Mode: interactive Write me a ticket for a new campaign feature
+```
+
+In that mode, the agent still loads the same knowledge and codebase context, but it asks targeted clarification questions before producing the first draft.
+
 The user can then:
 - Edit the draft in Copilot Chat
 - Ask follow-up questions
@@ -234,6 +246,8 @@ Looking back, a few principles emerged:
 2. **Ground in external context.** An agent with access to real codebase, real documents, and real team knowledge produces vastly better output than one working from thin air.
 
 3. **Optimise for iteration, not perfection.** Generate a draft immediately and ask clarifying questions after. This mirrors how humans actually work.
+
+We kept that as the default, but one thing we learned is that explicit mode selection matters. A plain-text directive such as `Mode: interactive` is clearer for agent behaviour than making a chat instruction look like a shell flag.
 
 4. **Consistency beats cleverness.** A team that has consistent structure, language, and format benefits more than a team with beautifully varied tickets. Structure is invisible when it works.
 

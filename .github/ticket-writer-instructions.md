@@ -12,7 +12,7 @@ The agent supports two modes. Choose the one that suits the situation:
 | Mode | When to use | How to invoke |
 |---|---|---|
 | **Default (Draft First)** | You have enough context and want a ticket immediately | `@ticket-writer <description>` |
-| **Interactive (Interview First)** | You want the agent to ask clarifying questions before drafting | `@ticket-writer --interactive <description>` |
+| **Interactive (Interview First)** | You want the agent to ask clarifying questions before drafting | `@ticket-writer Mode: interactive <description>` |
 
 **Default mode** generates a full draft ticket straight away, states any assumptions made, and asks up to 3 follow-up questions after the draft.
 
@@ -20,7 +20,7 @@ The agent supports two modes. Choose the one that suits the situation:
 
 If material gaps remain and you have not said `generate`, the agent may ask one additional round of up to 3 narrower questions. After that follow-up round, or after any partial answer, it drafts using what it has and documents assumptions for the rest.
 
-> `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag. Include it literally in the chat message.
+> `Mode: interactive` is a prompt-level directive, not a parsed shell or CLI flag. Include it literally in the chat message.
 
 ### Post-Ticket Code Suggestions
 

@@ -10,7 +10,7 @@ A VS Code GitHub Copilot custom agent that turns project context — codebase, r
 
 **Key behaviours:**
 - **Default mode:** Drafts a full ticket immediately; asks clarifying questions after (not before)
-- **Interactive mode:** Starts with 3-6 numbered A/B/C questions, can ask one narrower follow-up round if needed, and lets the user stop the interview at any time with `generate` — activate with `--interactive`
+- **Interactive mode:** Starts with 3-6 numbered A/B/C questions, can ask one narrower follow-up round if needed, and lets the user stop the interview at any time with `generate` — activate with `Mode: interactive`
 - Adapts structure based on ticket type (Story / Bug / Task / Spike)
 - Uses `#codebase` to reference actual modules, naming conventions, and test patterns
 - Outputs Markdown by default; posts to Jira only on explicit confirmation
@@ -280,19 +280,19 @@ Figma: https://www.figma.com/file/...
 
 #### Interactive mode — interview first, then draft
 
-Add `--interactive` to the prompt to switch the agent into an interview-first flow. The agent will scan the codebase and docs, ask an initial batch of 3-6 numbered clarification questions (each with **A**, **B**, and **C Custom** options), and wait for your answers before drafting.
+Add `Mode: interactive` to the prompt to switch the agent into an interview-first flow. The agent will scan the codebase and docs, ask an initial batch of 3-6 numbered clarification questions (each with **A**, **B**, and **C Custom** options), and wait for your answers before drafting.
 
 If material gaps remain, it may ask one additional round of up to 3 narrower questions. You can stop the interview at any time by including `generate` in your reply, and the agent will draft using the information collected so far.
 
 ```
-@ticket-writer --interactive Add a "Remember me" option to the login screen.
+@ticket-writer Mode: interactive Add a "Remember me" option to the login screen.
 ```
 
 ```
-@ticket-writer --interactive #codebase Add rate limiting to the /api/auth/login endpoint.
+@ticket-writer Mode: interactive #codebase Add rate limiting to the /api/auth/login endpoint.
 ```
 
-> **Important:** `--interactive` is a prompt-level mode token, not a real parsed shell or operating-system CLI flag. It is detected as a literal string in the Copilot chat message. If a future CLI wrapper is added, it can convert a real `--interactive` argument into this token before invoking the agent.
+> **Important:** `Mode: interactive` is a prompt-level directive, not a real parsed shell or operating-system CLI flag. It is detected from the Copilot chat message rather than being parsed by the Node CLI.
 
 ### Workflow
 
@@ -450,7 +450,7 @@ After installation, verify the agent is working correctly:
    - Uses UK English
    - AC section is a Markdown table (not a code block)
    - ACs are written in first person
-4. Run an interactive-mode test: `@ticket-writer --interactive Story: add a loading spinner to the submit button`
+4. Run an interactive-mode test: `@ticket-writer Mode: interactive Story: add a loading spinner to the submit button`
 5. Confirm the agent:
    - Does **not** draft a ticket immediately
   - Asks an initial batch of 3-6 numbered questions with A, B, and C Custom options

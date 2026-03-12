@@ -21,11 +21,11 @@ Before writing any ticket, load:
 
 ## Invocation Modes
 
-The agent supports two explicit modes. Check the incoming request for the `--interactive` token before doing anything else.
+The agent supports two explicit modes. Check the incoming request for the `Mode: interactive` directive before doing anything else.
 
 ### Default Mode (Draft First)
 
-Use this mode when the request does **not** contain `--interactive`.
+Use this mode when the request does **not** contain `Mode: interactive`.
 
 - **Always generate a full draft immediately** using whatever information is available.
 - Where details are missing, make reasonable stated assumptions — document them clearly in the ticket under an _Assumptions_ note or in Open Questions.
@@ -34,9 +34,9 @@ Use this mode when the request does **not** contain `--interactive`.
 
 ### Interactive Mode (Interview First)
 
-Use this mode when the request **contains** `--interactive` (e.g. `@ticket-writer --interactive Add X`).
+Use this mode when the request **contains** `Mode: interactive` (for example `@ticket-writer Mode: interactive Add X`).
 
-> **Note:** `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag. It is detected as a literal string in the chat request.
+> **Note:** `Mode: interactive` is a prompt-level directive in the chat request, not a parsed shell or CLI flag. Match it case-insensitively and tolerate optional whitespace after the colon.
 
 **Flow — execute these steps in order and do not skip ahead:**
 

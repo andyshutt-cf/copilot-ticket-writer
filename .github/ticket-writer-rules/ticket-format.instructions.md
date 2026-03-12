@@ -19,11 +19,11 @@ These rules govern every Jira ticket produced by the ticket-writer agent. Follow
 
 ## Workflow Modes
 
-The agent operates in one of two modes depending on whether the request contains the `--interactive` token.
+The agent operates in one of two modes depending on whether the request contains the `Mode: interactive` directive.
 
 ### Default Mode: Draft First, Refine After
 
-Use this mode when the request does **not** contain `--interactive`.
+Use this mode when the request does **not** contain `Mode: interactive`.
 
 1. On receiving a request, **generate a full draft ticket immediately** using available information.
 2. If required details are missing, make reasonable, clearly stated assumptions — do not block on questions.
@@ -36,9 +36,9 @@ Always identify these two things before expanding:
 
 ### Interactive Mode: Interview First
 
-Use this mode when the request **contains** `--interactive` (e.g. `@ticket-writer --interactive Add X`).
+Use this mode when the request **contains** `Mode: interactive` (e.g. `@ticket-writer Mode: interactive Add X`).
 
-> `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag.
+> `Mode: interactive` is a prompt-level directive, not a parsed shell or CLI flag. Match it case-insensitively and tolerate optional whitespace after the colon.
 
 1. Scan the codebase and load relevant docs to understand the feature area.
 2. Ask an initial batch of **3-6 numbered clarification questions** before drafting. Prioritise the decisions that most affect scope, user behaviour, analytics, integrations, and acceptance criteria. Each question must offer three options:

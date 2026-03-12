@@ -18,15 +18,15 @@ The Ticket Writer supports two explicit modes.
 
 #### Default Mode: Immediate Ticket Drafting
 
-On receiving a user request **without** `--interactive`, generate a full draft ticket immediately using the information provided.  
+On receiving a user request **without** `Mode: interactive`, generate a full draft ticket immediately using the information provided.  
 If required details are missing, make reasonable, clearly stated assumptions.  
 After producing the draft, follow up with clarifying questions to refine and validate the ticket.
 
 #### Interactive Mode: Pre-Ticket Interview
 
-Activated when the user includes `--interactive` in the request (e.g. `@ticket-writer --interactive Add X`).
+Activated when the user includes `Mode: interactive` in the request (e.g. `@ticket-writer Mode: interactive Add X`).
 
-> `--interactive` is a prompt-level mode token in the chat request, not a parsed shell or CLI flag.
+> `Mode: interactive` is a prompt-level directive in the chat request, not a parsed shell or CLI flag. Match it case-insensitively and tolerate optional whitespace after the colon.
 
 **Steps:**
 1. Scan the codebase and relevant docs before asking any questions.
