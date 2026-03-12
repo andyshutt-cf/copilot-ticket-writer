@@ -17,7 +17,13 @@ These rules govern every Jira ticket produced by the ticket-writer agent. Follow
 
 ---
 
-## Process: Draft First, Refine After
+## Workflow Modes
+
+The agent operates in one of two modes depending on whether the request contains the `--interactive` token.
+
+### Default Mode: Draft First, Refine After
+
+Use this mode when the request does **not** contain `--interactive`.
 
 1. On receiving a request, **generate a full draft ticket immediately** using available information.
 2. If required details are missing, make reasonable, clearly stated assumptions — do not block on questions.
@@ -27,6 +33,21 @@ These rules govern every Jira ticket produced by the ticket-writer agent. Follow
 Always identify these two things before expanding:
 - **Ticket Type**: Story, Task, Bug, or Spike
 - **Summary / Title**: one short line describing the feature, task, or bug
+
+### Interactive Mode: Interview First
+
+Use this mode when the request **contains** `--interactive` (e.g. `@ticket-writer --interactive Add X`).
+
+> `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag.
+
+1. Scan the codebase and load relevant docs to understand the feature area.
+2. Ask **3–4 numbered clarification questions** before drafting. Each question must offer three options:
+   - **A** — first concrete suggestion (grounded in codebase context)
+   - **B** — alternative suggestion
+   - **C** — Custom (user provides their own answer)
+3. Present all questions in a single response and **wait** for the user to reply.
+4. Once the user responds, draft the full ticket.
+   - **Partial-answer fallback:** if the user answers only some questions, draft the ticket immediately using the answers provided and state explicit assumptions for any unanswered questions. Do not request a second round of clarification.
 
 ---
 

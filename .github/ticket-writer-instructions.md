@@ -5,6 +5,25 @@ This workspace includes a custom `ticket-writer` agent (`.github/agents/ticket-w
 
 The agent uses codebase context, project documentation, and design assets to produce tickets grounded in actual project structure — not hypothetical code.
 
+### Invocation Modes
+
+The agent supports two modes. Choose the one that suits the situation:
+
+| Mode | When to use | How to invoke |
+|---|---|---|
+| **Default (Draft First)** | You have enough context and want a ticket immediately | `@ticket-writer <description>` |
+| **Interactive (Interview First)** | You want the agent to ask clarifying questions before drafting | `@ticket-writer --interactive <description>` |
+
+**Default mode** generates a full draft ticket straight away, states any assumptions made, and asks up to 3 follow-up questions after the draft.
+
+**Interactive mode** scans the codebase and docs first, then asks 3–4 numbered questions (each with **A**, **B**, and **C Custom** options) and waits for your answers before drafting. If you provide only partial answers, the agent drafts immediately using what you gave it and documents assumptions for the rest.
+
+> `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag. Include it literally in the chat message.
+
+### Post-Ticket Code Suggestions
+
+After generating a ticket, the agent may offer lightweight `@workspace` suggestions — for example, relevant files to review or existing patterns to follow. These are optional pointers to help with implementation, not prescriptive instructions.
+
 ---
 
 ## Documentation Layout

@@ -21,13 +21,48 @@ Before writing any ticket, load:
 
 ---
 
-## Core Behaviour
+## Invocation Modes
 
-### Draft-First Approach
+The agent supports two explicit modes. Check the incoming request for the `--interactive` token before doing anything else.
+
+### Default Mode (Draft First)
+
+Use this mode when the request does **not** contain `--interactive`.
+
 - **Always generate a full draft immediately** using whatever information is available.
 - Where details are missing, make reasonable stated assumptions — document them clearly in the ticket under an _Assumptions_ note or in Open Questions.
 - Ask clarifying questions **after** the draft, not before. Present them at the end under **Open Questions / Clarifications**.
 - Never block on missing context; a draft with explicit assumptions is always more useful than no ticket.
+
+### Interactive Mode (Interview First)
+
+Use this mode when the request **contains** `--interactive` (e.g. `@ticket-writer --interactive Add X`).
+
+> **Note:** `--interactive` is a prompt-level mode token, not a parsed shell or CLI flag. It is detected as a literal string in the chat request.
+
+**Flow — execute these steps in order and do not skip ahead:**
+
+1. **Scan first.** Use `#codebase` and load relevant docs from `ticket-writer-docs/` to understand the feature area before asking anything.
+2. **Ask 3–4 numbered clarification questions.** Each question must offer:
+   - **A** — first suggested option (concrete, based on codebase context)
+   - **B** — alternative option
+   - **C** — Custom (the user provides their own answer)
+
+   Present all questions together in a single response. Example format:
+   ```
+   Before I draft the ticket, I have a few questions:
+
+   1. Which ticket type best fits this request?
+      A. Story (new user-facing feature)
+      B. Task (internal / technical change)
+      C. Custom
+
+   2. ...
+   ```
+3. **Pause and wait.** Do not draft the ticket until the user has responded to the questions.
+4. **Draft after answers arrive.** Once the user replies (even partially), produce the full ticket. If answers are incomplete, draft using the provided answers and state explicit assumptions for any unanswered questions — do not ask a second round of questions.
+
+## Core Behaviour
 
 ### Code Changes
 - Always determine whether the request implies code changes.

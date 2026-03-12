@@ -4,20 +4,34 @@
     {
       "id": "jira-base-url",
       "type": "promptString",
-      "description": "https://xsolutions.atlassian.net/"
+      "description": "Your Jira base URL (e.g. https://yourorg.atlassian.net/)"
     },
     {
       "id": "jira-email",
       "type": "promptString",
-      "description": "andrew.shutt@createfuture.com"
+      "description": "Your Jira account email address"
     },
     {
       "id": "jira-api-token",
       "type": "promptString",
-      "description": "ATATT3xFfGF0lwPbyApMuqIpl48FyHqgKHQDsR4LByA0z3kWhtO49UesRVthaleb1PNrYDprERtkXpD6OFvxBfIJsPkY97WOafBFIIy8TD887y7c0h9CXYBrQlOG33H2iJ2TKFLzAfgSBgar6Lyt2u4BYZeczMnAzRCaJyKj5YtYoKfSe4IX48E=06509A53",
+      "description": "Your Jira API token — generate one at https://id.atlassian.com/manage-profile/security/api-tokens",
       "password": true
     }
   ],
+  "servers": {
+    "jira": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@joshuarileydev/jira-mcp-server"],
+      "env": {
+        "JIRA_BASE_URL": "${input:jira-base-url}",
+        "JIRA_EMAIL": "${input:jira-email}",
+        "JIRA_API_TOKEN": "${input:jira-api-token}"
+      }
+    }
+  }
+}
+
   "servers": {
     "jira": {
       "type": "stdio",

@@ -9,7 +9,8 @@ A VS Code GitHub Copilot custom agent that turns project context — codebase, r
 `@ticket-writer` is a custom Copilot agent that drafts actionable Jira tickets (Story, Bug, Task, Spike) following a consistent, team-agreed structure. It grounds its output in real codebase patterns, loaded knowledge documents, and design assets — not guesswork.
 
 **Key behaviours:**
-- Drafts a full ticket immediately; asks clarifying questions after (not before)
+- **Default mode:** Drafts a full ticket immediately; asks clarifying questions after (not before)
+- **Interactive mode:** Asks 3–4 numbered A/B/C questions first, waits for answers, then drafts — activate with `--interactive`
 - Adapts structure based on ticket type (Story / Bug / Task / Spike)
 - Uses `#codebase` to reference actual modules, naming conventions, and test patterns
 - Outputs Markdown by default; posts to Jira only on explicit confirmation
@@ -187,6 +188,10 @@ You will need:
 
 ### Example prompts
 
+The agent has two modes. Use the one that best fits the situation.
+
+#### Default mode — draft immediately
+
 **Story ticket:**
 ```
 @ticket-writer Add a "Remember me" option to the login screen so users 
@@ -229,12 +234,36 @@ to show inline validation errors rather than a toast notification.
 Figma: https://www.figma.com/file/...
 ```
 
+#### Interactive mode — interview first, then draft
+
+Add `--interactive` to the prompt to switch the agent into an interview-first flow. The agent will scan the codebase and docs, ask 3–4 numbered clarification questions (each with **A**, **B**, and **C Custom** options), wait for your answers, and then produce the full ticket.
+
+```
+@ticket-writer --interactive Add a "Remember me" option to the login screen.
+```
+
+```
+@ticket-writer --interactive #codebase Add rate limiting to the /api/auth/login endpoint.
+```
+
+> **Important:** `--interactive` is a prompt-level mode token, not a real parsed shell or operating-system CLI flag. It is detected as a literal string in the Copilot chat message. If a future CLI wrapper is added, it can convert a real `--interactive` argument into this token before invoking the agent.
+
 ### Workflow
+
+#### Default mode
 
 1. The agent drafts a full ticket immediately
 2. Review the draft — it will clearly state any assumptions made
 3. The agent follows up with up to 3 clarifying questions
 4. Answer the questions to refine the ticket
+5. Copy the Markdown into Jira, or (if MCP is enabled) confirm to post directly
+
+#### Interactive mode
+
+1. The agent scans the codebase and loads relevant docs
+2. The agent asks 3–4 numbered questions (A / B / C Custom options) in a single response
+3. Answer the questions — partial answers are fine
+4. The agent drafts the full ticket based on your answers, stating assumptions for anything unanswered
 5. Copy the Markdown into Jira, or (if MCP is enabled) confirm to post directly
 
 ---
@@ -307,12 +336,17 @@ Rules:
 After installation, verify the agent is working correctly:
 
 1. Open Copilot Chat → agent picker → confirm **ticket-writer** appears in the list
-2. Run a simple test prompt: `@ticket-writer Story: add a loading spinner to the submit button`
+2. Run a default-mode test: `@ticket-writer Story: add a loading spinner to the submit button`
 3. Confirm the output:
    - Follows the correct Story structure
    - Uses UK English
    - AC section is a Markdown table (not a code block)
    - ACs are written in first person
+4. Run an interactive-mode test: `@ticket-writer --interactive Story: add a loading spinner to the submit button`
+5. Confirm the agent:
+   - Does **not** draft a ticket immediately
+   - Asks 3–4 numbered questions with A, B, and C Custom options
+   - Waits for your answers before producing the ticket
 
 If the agent doesn't appear, check that your VS Code version is 1.106 or later and that you have a Copilot subscription with Custom Agents enabled.
 
