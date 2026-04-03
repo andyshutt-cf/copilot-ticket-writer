@@ -67,6 +67,22 @@ package.json                        # npm script wrapper for the CLI tool
 
 ### Option A — Add to an existing project (recommended)
 
+**Important:** If your client project already has a `package.json` file, manually add these entries instead of using the copy command.
+
+Add to the `"scripts"` section:
+
+```json
+"create-ticket": "node ticket-writer-scripts/create-jira-ticket.js"
+
+Add this new section at the root level (if it doesn't exist):
+
+"engines": {
+  "node": ">=18"
+}
+
+Also update package-lock.json with the "engines" field.
+Then run the copy commands excluding `cp package.json .env.example /path/to/client-project/`
+
 Copy the following into your client's project repository root:
 
 ```bash
